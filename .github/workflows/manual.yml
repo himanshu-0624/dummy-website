@@ -43,6 +43,19 @@ jobs:
           echo "STRING1=Hello, this is a test string." >> $GITHUB_ENV
           echo "STRING2=test" >> $GITHUB_ENV
 
+jobs:
+  curl-job:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Set environment variables
+        run: |
+          echo "STRING1=Hello, this is a test string." >> $GITHUB_ENV
+          echo "STRING2=test" >> $GITHUB_ENV
+
       - name: Make curl call using env variables
         env:
           STRING1: ${{ env.STRING1 }}
@@ -51,5 +64,6 @@ jobs:
           curl -X POST "http://example.com/api" \
             -H "Content-Type: application/json" \
             -d "{\"message\": \"$STRING1\", \"keyword\": \"$STRING2\"}"
+
 
       
